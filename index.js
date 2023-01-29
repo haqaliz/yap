@@ -1,14 +1,16 @@
-const http = require('http');
-const url = require('url');
+const app = require('express')();
+const bodyParser = require('body-parser');
+const routers = require('./src/routers');
 
 const DEV = process.env.NODE_ENV === 'development';
 
-const app = http.createServer((req, res) => {
-  const host = url.parse(req.headers.host, true);
-  const path = url.parse(req.url, true);
-  console.log(host, path)
-  res.end("Hello world!!")
-})
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
+
+app.use('/', routers);
 
 if (DEV) {
   const PORT = 8082;
