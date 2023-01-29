@@ -1,4 +1,4 @@
-const { db } = require('../config.js');
+const { db } = require('../config');
 
 const getById = async (id) => {
   const r = await db.get(id);
